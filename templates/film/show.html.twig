@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formImpression 'bootstrap_5_layout.html.twig' %}
+
+{% block body %}
+
+    <div class="card m-3 text-center" style="width: 18rem;">
+        <img src="" class="card-img-top" alt="ici les futur images">
+        <div class="card-body">
+            <h5 class="card-title">{{film.name}}</h5>
+            <p class="card-text">realisateur : {{ film.realisateur}} </p>
+            <p class="card-text">résumé : {{ film.resume }} </p>
+            <p class="card-text">Autheur : {{film.user.username}}</p>
+            <p class="card-text">date de sortie : {{ film.sortie|date("m/d/y")}} </p>
+            <hr>
+            <h1 class="text-center">Avis :</h1>
+            {% for impression in film.impressions %}
+                <p class="card-text">avis : {{ impression.content}}</p>
+                <p class="card-text">Autheur : {{impression.user.username}}</p>
+                <p class="card-text">creation de l'avis : {{ impression.createdAt|date("m/d/y")}} </p>
+                <a href="{{ path('edit_impression' , {id: impression.id}) }}" class="btn btn-warning m-1">modifier l'avis'</a>
+                <a href="{{ path('impression_delete' , {id: impression.id}) }}" class="btn btn-danger m-1">supprimer l' avis</a>
+                <hr>
+            {% endfor %}
+            <a href="{{ path('film_edit' , {id: film.id}) }}" class="btn btn-warning m-1">modifier le film</a>
+            <a href="{{ path('film_delete' , {id: film.id}) }}" class="btn btn-danger m-1">supprimer le film</a>
+        </div>
+    </div>
+
+    <h1 class="text-center">Formulaire creation d' impression</h1>
+
+    {{ form_start(formImpression) }}
+
+    {{form_row(formImpression.content, {'attr': {'placeholder': 'ton avis sur le film'} })}}
+
+
+
+    <button class="btn btn-success" type="submit">Enregistrer</button>
+
+    {{form_end(formImpression)}}
+
+
+
+{% endblock %}

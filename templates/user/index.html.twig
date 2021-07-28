@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}film {% endblock %}
+{% form_theme formUser 'bootstrap_5_layout.html.twig' %}
+
+{% block body %}
+
+    <h1>Formulaire inscription</h1>
+
+    {{form_start(formUser)}}
+
+    {{form_row(formUser.username, {'attr': {'placeholder': 'username'} })}}
+    {{form_row(formUser.email, {'attr': {'placeholder': 'email'} })}}
+    {{form_row(formUser.password, {'attr': {'placeholder': 'password'} })}}
+
+
+    <button class="btn btn-success" type="submit">Enregistrer</button>
+    {{form_end(formUser)}}
+
+{% endblock %}
